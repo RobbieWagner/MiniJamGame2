@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+﻿using NavMeshPlus.Components;
 
 public class TileGenerator : MonoBehaviour
 {
@@ -25,8 +26,9 @@ public class TileGenerator : MonoBehaviour
 
     [SerializeField] int firstNonWaterTileLayer;
 
-
-    private float PERLIN_SCALE = .05f;
+    [SerializeField] Transform layout;
+    [SerializeField] private NavMeshSurface navMesh;
+    [SerializeField] private float PERLIN_SCALE = .05f;
 
     public void GenerateGame()
     {
@@ -65,6 +67,12 @@ public class TileGenerator : MonoBehaviour
 
         //PrintCurrentState();
         PlaceTiles();
+        navMesh.BuildNavMeshAsync();
+    }
+
+    public Vector2 CalculateWorldBorder()
+    {
+        return new Vector2(maxColumns * tileSize / 2, maxRows * tileSize);
     }
 
     private void AssignBaseGameLayers()
@@ -147,12 +155,12 @@ public class TileGenerator : MonoBehaviour
     {
         for(int i = 0; i < baseGameTileLayers.Length; i++)
         {
-            baseGameTileLayers[i].PlaceLayerTiles(maxRows, maxColumns, generatedTiles, selectedTileLayers, i, tileSize, startingPosition);
+            baseGameTileLayers[i].PlaceLayerTiles(maxRows, maxColumns, generatedTiles, selectedTileLayers, i, tileSize, startingPosition, layout);
         }
         
         for(int i = baseGameTileLayers.Length; i < baseGameTileLayers.Length + mapFeatureLayers.Length; i++)
         {
-            mapFeatureLayers[i-baseGameTileLayers.Length].PlaceLayerTiles(maxRows, maxColumns, generatedTiles, selectedTileLayers, i, tileSize, startingPosition);
+            mapFeatureLayers[i-baseGameTileLayers.Length].PlaceLayerTiles(maxRows, maxColumns, generatedTiles, selectedTileLayers, i, tileSize, startingPosition, layout);
         }
     }
 

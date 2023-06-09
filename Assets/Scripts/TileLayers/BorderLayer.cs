@@ -24,9 +24,9 @@ public class BorderLayer : TileLayer
         northEastSouthWest
     }
 
-    public override void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition)
+    public override void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition, Transform parentTile)
     { 
-        PlaceOuterBorder(maxRows, maxColumns, tiles[11], startingPosition);
+        PlaceOuterBorder(maxRows, maxColumns, tiles[11], startingPosition, parentTile);
         tileSize = size;
         Vector3 tilePosition;
         for(int y = 0; y < maxRows; y++)
@@ -39,7 +39,7 @@ public class BorderLayer : TileLayer
 
                     int tile = FindTileToUse(x, y, maxColumns, maxRows, selectedTileLayers, layer);
 
-                    AddTile(tilePosition, tiles[tile]);
+                    AddTile(tilePosition, tiles[tile], parentTile);
                 }
             }
         }
@@ -73,12 +73,12 @@ public class BorderLayer : TileLayer
         else return 0; 
     }
 
-    private void PlaceOuterBorder(int maxRows, int maxColumns, GameObject tile, Vector3 startingPosition)
+    private void PlaceOuterBorder(int maxRows, int maxColumns, GameObject tile, Vector3 startingPosition, Transform parentTile)
     {
         for(int i = 0; i < maxRows; i++) 
         {
-            AddTile(-1, i, tile, startingPosition);
-            AddTile(maxColumns, i,  tile, startingPosition);
+            AddTile(-1, i, tile, startingPosition, parentTile);
+            AddTile(maxColumns, i,  tile, startingPosition, parentTile);
         }
     }
 }

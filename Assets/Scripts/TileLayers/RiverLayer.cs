@@ -21,17 +21,17 @@ public class RiverLayer : TileLayer
         turnRight
     }
 
-    public override void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition)
+    public override void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition, Transform parentTile)
     {
         tileSize = size;
         int column = 0;
         int row = 0;
         while(selectedTileLayers[0, row] != layer && row < maxRows) row++;
 
-        AddTile(column, row, tiles[tiles.Length-1], startingPosition, generatedTiles, selectedTileLayers, layer);
+        AddTile(column, row, tiles[tiles.Length-1], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
         column++;
 
-        int lastplacement = 0;
+        //int lastplacement = 0;
 
         List<List<int>> possibleBridgeLocations = new List<List<int>>();
 
@@ -40,18 +40,18 @@ public class RiverLayer : TileLayer
             bool[] riverTilesNESW = CheckForAdjacentTiles(column, row, maxColumns, maxRows, selectedTileLayers, layer);
             if(riverTilesNESW[3] && riverTilesNESW[1]) 
             {
-                if(bridgeTile == null) AddTile(column, row, tiles[(int) RIVER_TURN.horizontal], startingPosition, generatedTiles, selectedTileLayers, layer);
+                if(bridgeTile == null) AddTile(column, row, tiles[(int) RIVER_TURN.horizontal], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                 else possibleBridgeLocations.Add(new List<int>(){column, row});
                 column++;
             }
             else if(riverTilesNESW[3] && riverTilesNESW[2])
             {
-                AddTile(column, row, tiles[(int) RIVER_TURN.turnDown], startingPosition, generatedTiles, selectedTileLayers, layer);
+                AddTile(column, row, tiles[(int) RIVER_TURN.turnDown], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                 row--;
             }
             else if(riverTilesNESW[3] && riverTilesNESW[0])
             {
-                AddTile(column, row, tiles[(int) RIVER_TURN.turnUp], startingPosition, generatedTiles, selectedTileLayers, layer);
+                AddTile(column, row, tiles[(int) RIVER_TURN.turnUp], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                 row++;
             }
             else if(riverTilesNESW[0] && riverTilesNESW[2])
@@ -60,23 +60,23 @@ public class RiverLayer : TileLayer
                 bool nextRiverIsUp = !tilesGenerated[0];
                 if(nextRiverIsUp) 
                 {
-                    AddTile(column, row, tiles[(int) RIVER_TURN.verticalUp], startingPosition, generatedTiles, selectedTileLayers, layer);
+                    AddTile(column, row, tiles[(int) RIVER_TURN.verticalUp], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                     row++;
                 }
                 else 
                 {
-                    AddTile(column, row, tiles[(int) RIVER_TURN.verticalDown], startingPosition, generatedTiles, selectedTileLayers, layer);
+                    AddTile(column, row, tiles[(int) RIVER_TURN.verticalDown], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                     row--;
                 }
             }
             else if(riverTilesNESW[0] && riverTilesNESW[1])
             {
-                AddTile(column, row, tiles[(int) RIVER_TURN.turnLeft], startingPosition, generatedTiles, selectedTileLayers, layer);
+                AddTile(column, row, tiles[(int) RIVER_TURN.turnLeft], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                 column++;
             }
             else if(riverTilesNESW[2] && riverTilesNESW[1])
             {
-                AddTile(column, row, tiles[(int) RIVER_TURN.turnRight], startingPosition, generatedTiles, selectedTileLayers, layer);
+                AddTile(column, row, tiles[(int) RIVER_TURN.turnRight], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                 column++;
             }
             else 
@@ -102,7 +102,7 @@ public class RiverLayer : TileLayer
                     borderChecks = CheckForAdjacentTiles(possibleBridgeLocations[tileToBridge][0], possibleBridgeLocations[tileToBridge][1], maxColumns, maxRows, selectedTileLayers, 0);
                     bridgeCheck = HasNearbyBridge(possibleBridgeLocations[tileToBridge][1], bridgeYCoordinates);
                 }
-                AddTile(possibleBridgeLocations[tileToBridge][0], possibleBridgeLocations[tileToBridge][1], bridgeTile, startingPosition, generatedTiles, selectedTileLayers, layer);
+                AddTile(possibleBridgeLocations[tileToBridge][0], possibleBridgeLocations[tileToBridge][1], bridgeTile, startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
                 bridgeYCoordinates.Add(possibleBridgeLocations[tileToBridge][1]);
                 possibleBridgeLocations.RemoveAt(tileToBridge);
             }
@@ -110,10 +110,10 @@ public class RiverLayer : TileLayer
 
          for(int i = 0; i < possibleBridgeLocations.Count; i++)
         {
-            AddTile(possibleBridgeLocations[i][0], possibleBridgeLocations[i][1], tiles[(int) RIVER_TURN.horizontal], startingPosition, generatedTiles, selectedTileLayers, layer);
+            AddTile(possibleBridgeLocations[i][0], possibleBridgeLocations[i][1], tiles[(int) RIVER_TURN.horizontal], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
         }
 
-        AddTile(column, row, tiles[tiles.Length-1], startingPosition, generatedTiles, selectedTileLayers, layer);
+        AddTile(column, row, tiles[tiles.Length-1], startingPosition, generatedTiles, selectedTileLayers, layer, parentTile);
     }
 
     public void ShuffleCoordinates(List<List<int>> coordinates)  

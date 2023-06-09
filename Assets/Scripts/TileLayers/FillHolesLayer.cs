@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FillHolesLayer : TileLayer
 {
-    public virtual void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition)
+    public virtual void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition, Transform parentTile)
         { 
             tileSize = size;
             Vector3 tilePosition;
@@ -17,7 +17,7 @@ public class FillHolesLayer : TileLayer
                         tilePosition = new Vector3(tileSize * y, tileSize * x, 0) + startingPosition;
                         if(PositionHasNoTile(tilePosition, tileSize)) 
                         {
-                            AddTile(tilePosition, tiles[0]);
+                            AddTile(tilePosition, tiles[0], parentTile);
                         }
                     }
                 }

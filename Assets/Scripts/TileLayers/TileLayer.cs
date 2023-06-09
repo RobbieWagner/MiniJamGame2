@@ -7,7 +7,7 @@ public class TileLayer : MonoBehaviour
     [SerializeField] protected GameObject[] tiles;
     protected float tileSize;
 
-    public virtual void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition)
+    public virtual void PlaceLayerTiles(int maxRows, int maxColumns, bool[,] generatedTiles, int[,] selectedTileLayers, int layer, float size, Vector3 startingPosition, Transform tileParent)
     { 
         tileSize = size;
         Vector3 tilePosition;
@@ -23,7 +23,7 @@ public class TileLayer : MonoBehaviour
                     //     AddTile(tilePosition, tiles[(int)Random.Range(0,tiles.Length)]);
                     // }
 
-                    AddTile(tilePosition, tiles[(int)Random.Range(0,tiles.Length)]);
+                    AddTile(tilePosition, tiles[(int)Random.Range(0,tiles.Length)], tileParent);
                 }
             }
         }
@@ -31,22 +31,22 @@ public class TileLayer : MonoBehaviour
         //PrintCurrentState(maxColumns,maxRows, selectedTileLayers);
     }
 
-    protected void AddTile(Vector3 position, GameObject tile)
+    protected void AddTile(Vector3 position, GameObject tile, Transform parent)
     {
-        Transform tileT = Instantiate(tile).transform;
+        Transform tileT = Instantiate(tile, parent).transform;
         tileT.position = position;
     }
 
-    protected void AddTile(int column, int row, GameObject tile, Vector3 startingPosition)
+    protected void AddTile(int column, int row, GameObject tile, Vector3 startingPosition, Transform parent)
     {
         Vector3 tilePosition = new Vector3(column * tileSize, row * tileSize, 0) + startingPosition;
-        AddTile(tilePosition, tile);
+        AddTile(tilePosition, tile, parent);
     }
 
-    protected void AddTile(int column, int row, GameObject tile, Vector3 startingPosition, bool[,] generated, int[,] layers, int layer)
+    protected void AddTile(int column, int row, GameObject tile, Vector3 startingPosition, bool[,] generated, int[,] layers, int layer, Transform parent)
     {
         Vector3 tilePosition = new Vector3(column * tileSize, row * tileSize, 0) + startingPosition;
-        AddTile(tilePosition, tile);
+        AddTile(tilePosition, tile, parent);
         generated[column, row] = true; 
         layers[column, row] = layer;
     }
