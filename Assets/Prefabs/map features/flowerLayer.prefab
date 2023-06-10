@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3746320717507747637}
   - component: {fileID: 3746320717507747636}
   m_Layer: 0
-  m_Name: BushesDark
+  m_Name: flowerLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   borderLimit: 10
-  numberOfCampfires: 15
-  acceptableLayers: 0800000009000000
+  numberOfCampfires: 27
+  acceptableLayers: 07000000

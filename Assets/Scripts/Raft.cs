@@ -34,6 +34,11 @@ public class Raft : MonoBehaviour
     [SerializeField] private AudioSource raftMovementSound;
 
     [SerializeField] Slider raftHealth;
+    [SerializeField] float maxRaftHealth;
+    [SerializeField] float replenishmentAmount;
+
+    bool moving;
+    bool slowed;
 
     public static Raft Instance{get; private set;}
 
@@ -59,6 +64,28 @@ public class Raft : MonoBehaviour
         playerMovement = new PlayerMovement();
         spriteR = GetComponent<SpriteRenderer>();
         spriteR.sprite = idleSprite;
+
+        moving = false;
+
+        raftHealth.maxValue = maxRaftHealth;
+        raftHealth.value = maxRaftHealth;
+
+        raftHealth.gameObject.SetActive(false);
+
+        slowed = false;
+    }
+
+    private void Update() 
+    {
+        if(moving)
+        {
+            raftHealth.value -= Time.deltaTime;
+            if(!slowed && raftHealth.value == 0)
+            {
+                slowed = true;
+                ChangeSpeed(raftCurrentSpeed);
+            }
+        }
     }
 
     protected void OnEnable() 
@@ -121,6 +148,10 @@ public class Raft : MonoBehaviour
         if(canEnterRaft && !isInRaft)
         {
             EnterRaft();
+            if(GameStats.Instance.Fibers > 0 && raftHealth.value < raftHealth.maxValue - replenishmentAmount/5)
+            {
+                RepairRaft();
+            }
         }
         else if(canExitRaft && isInRaft && beachTilesTouched.Count > 0)
         {
@@ -142,6 +173,8 @@ public class Raft : MonoBehaviour
 
         Player.Instance.spriteT.rotation = Quaternion.Euler(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        raftHealth.gameObject.SetActive(true);
     }
 
     //Exit the raft
@@ -157,6 +190,8 @@ public class Raft : MonoBehaviour
         Player.Instance.rb2d.velocity = Vector2.zero;
         moveInput = Vector2.zero;
         raftMovementSound.Stop();
+
+        raftHealth.gameObject.SetActive(false);
         //Debug.Log(Player.Instance.rb2d.velocity);
         //Debug.Log(rb2d.velocity);
     }
@@ -177,11 +212,13 @@ public class Raft : MonoBehaviour
                 {
                     raftMovementSound.Play();
                 }
+                moving = true;
             }
             else 
             {
                 spriteR.sprite = idleSprite;
                 raftMovementSound.Stop();
+                moving = false;
             }
         }
         else
@@ -193,6 +230,7 @@ public class Raft : MonoBehaviour
     private void ChangeSpeed(float newSpeed)
     {
         raftCurrentSpeed = newSpeed;
+        if(raftHealth.value == raftHealth.minValue) raftCurrentSpeed /= 3;
         rb2d.velocity = moveInput * raftCurrentSpeed;
     }
 
@@ -223,6 +261,15 @@ public class Raft : MonoBehaviour
 
         transform.rotation = rotation;
         Player.Instance.spriteT.rotation = rotation;
+    }
 
+    private void RepairRaft()
+    {
+        while(raftHealth.value < raftHealth.maxValue && GameStats.Instance.Fibers > 0)
+        {
+            GameStats.Instance.Fibers--;
+            raftHealth.value += replenishmentAmount;
+            slowed = false;
+        }
     }
 }

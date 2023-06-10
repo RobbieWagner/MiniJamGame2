@@ -17,13 +17,27 @@ public class GameStats : MonoBehaviour
             if(OnFuelSet != null) OnFuelSet(fuel);
         }
     }
-    private int fuel;
+    private int fuel = 0;
 
     public delegate void OnFuelSetDelegate(int fuel);
     public event OnFuelSetDelegate OnFuelSet;
 
+        public int Fibers 
+    {
+        get {return fibers;}
+        set
+        {
+            fibers = value;
+            if(OnFibersSet != null) OnFibersSet(fibers);
+        }
+    }
+    private int fibers = 0;
+
+    public delegate void OnFibersSetDelegate(int fuel);
+    public event OnFibersSetDelegate OnFibersSet;
 
     public TextMeshProUGUI fuelAmountText;
+    public TextMeshProUGUI fiberAmountText;
 
     private void Awake()
     {
@@ -37,10 +51,16 @@ public class GameStats : MonoBehaviour
         } 
 
         OnFuelSet += UpdateFuelText;
+        OnFibersSet += UpdateFibersText;
     }
 
     private void UpdateFuelText(int fuel)
     {
         fuelAmountText.text = "Branches:\n" + fuel.ToString();
+    }
+
+    private void UpdateFibersText(int fibers)
+    {
+        fiberAmountText.text = "Plant Fibers:\n" + fibers.ToString();
     }
 }

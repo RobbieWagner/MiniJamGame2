@@ -394,9 +394,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInRaft: 0
   raftWaterSpeed: 11
-  raftGroundSpeed: 2
+  raftGroundSpeed: 3
   isOnLand: 0
   rb2d: {fileID: 0}
   movingSprite: {fileID: 21300000, guid: 76a53dcb0b8c9f34c9d543bd0e25a4ad, type: 3}
   idleSprite: {fileID: 21300000, guid: 02e27169058cf694e8ba984fac0f81ef, type: 3}
   raftMovementSound: {fileID: 7264308034532440921}
+  raftHealth: {fileID: 0}
+  maxRaftHealth: 60
+  replenishmentAmount: 40
