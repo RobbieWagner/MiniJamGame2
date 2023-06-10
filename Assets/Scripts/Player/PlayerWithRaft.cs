@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerWithRaft : Player
 {
@@ -31,7 +32,7 @@ public class PlayerWithRaft : Player
             if(!waterTilesTouched.Contains(other)) waterTilesTouched.Add(other);
             ChangeSpeed(waterSpeed);
             isInWater = true;
-            SwitchFootstepSound(swimSound);
+            SwitchToSwimSound(swimSound);
         }
     }
 
@@ -57,6 +58,20 @@ public class PlayerWithRaft : Player
         {
             Raft raft = raftGO.GetComponent<Raft>();
             if(raft != null && !raft.isInRaft) RemoveRaft();
+        }
+    }
+
+    protected override void OnMovement(InputValue value) 
+    {
+        if(canMove)
+        {
+            moveInput = value.Get<Vector2>();
+            rb2d.velocity = moveInput * currentSpeed;
+            if(moveInput.x != 0 || moveInput.y != 0) animator.SetBool("walking", true);
+            else animator.SetBool("walking", false);
+            UpdateRotation();
+            if(!currentFootstepsSound.isPlaying && (moveInput.x != 0 || moveInput.y != 0)) currentFootstepsSound.Play();
+            else if((moveInput.x == 0 && moveInput.y == 0) || Raft.Instance.isInRaft) currentFootstepsSound.Stop();
         }
     }
 
@@ -86,6 +101,16 @@ public class PlayerWithRaft : Player
             if(!isInWater && running) SwitchFootstepSound(runSound);
             else if(!isInWater) SwitchFootstepSound(footstepsSound);
             else SwitchFootstepSound(swimSound);
+        }
+    }
+
+    private void SwitchToSwimSound(AudioSource sound)
+    {
+        if(!Raft.Instance.isInRaft)
+        {
+            currentFootstepsSound.Stop();
+            currentFootstepsSound = sound;
+            currentFootstepsSound.Play();
         }
     }
 }

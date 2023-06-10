@@ -169,7 +169,10 @@ public class Raft : MonoBehaviour
             if(moveInput.x != 0 || moveInput.y != 0) 
             {
                 spriteR.sprite = movingSprite;
-                if(!raftMovementSound.isPlaying) raftMovementSound.Play();
+                if(!raftMovementSound.isPlaying) 
+                {
+                    raftMovementSound.Play();
+                }
             }
             else 
             {

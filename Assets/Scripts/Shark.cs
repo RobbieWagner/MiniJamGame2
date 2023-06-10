@@ -23,6 +23,8 @@ public class Shark : MonoBehaviour
 
     [SerializeField] int corner;
 
+    [SerializeField] AudioSource chaseMusic;
+
     private void Awake()
     {
         transform.position = tileGenerator.CalculateWorldBorder(corner);
@@ -53,11 +55,13 @@ public class Shark : MonoBehaviour
         }
         else
         {
+            if(!chaseMusic.isPlaying) chaseMusic.Play();
             navAgent.SetDestination(player.transform.position);
             NavMeshPath navMeshPath = new NavMeshPath();
             if(!(navAgent.CalculatePath(player.transform.position, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete) || (Raft.Instance.isOnLand && Raft.Instance.isInRaft))
             {
                 isChasingPlayer = false;
+                chaseMusic.Stop();
                 //Debug.Log("stop chasing");
                 destination = FindNewDestination();
                 navAgent.SetDestination(destination);

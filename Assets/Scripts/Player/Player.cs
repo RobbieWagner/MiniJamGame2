@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
         playerMovement.Player.Disable();
     }
 
-    protected void OnMovement(InputValue value) 
+    protected virtual void OnMovement(InputValue value) 
     {
         if(canMove)
         {
@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         currentFootstepsSound.Stop();
     }
 
-    private void UpdateRotation()
+    protected void UpdateRotation()
     {
         if(moveInput.x > 0)
         {

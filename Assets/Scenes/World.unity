@@ -1455,6 +1455,7 @@ MonoBehaviour:
   player: {fileID: 969801228}
   destinationReachDistance: 7
   corner: 4
+  chaseMusic: {fileID: 1711519893}
 --- !u!50 &796081396
 Rigidbody2D:
   serializedVersion: 4
@@ -2141,6 +2142,7 @@ MonoBehaviour:
   player: {fileID: 969801228}
   destinationReachDistance: 7
   corner: 3
+  chaseMusic: {fileID: 1711519893}
 --- !u!50 &1115176705
 Rigidbody2D:
   serializedVersion: 4
@@ -2892,6 +2894,134 @@ MonoBehaviour:
   tileGenerator: {fileID: 798119805}
   player: {fileID: 969801224}
   signalFire: {fileID: 1430241656453625633, guid: 1f9afab3f2e67834887f6ccefc76012a, type: 3}
+--- !u!1 &1711519891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1711519892}
+  - component: {fileID: 1711519893}
+  m_Layer: 0
+  m_Name: chaseMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1711519892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711519891}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2068830972}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1711519893
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711519891}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -6532146861154747460, guid: f867c5bc26e711149a7dffffd232d6e9, type: 2}
+  m_audioClip: {fileID: 8300000, guid: e5b758ca86b23f340a90be25a140f68f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1818331206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2992,6 +3122,7 @@ MonoBehaviour:
   player: {fileID: 969801228}
   destinationReachDistance: 7
   corner: 1
+  chaseMusic: {fileID: 1711519893}
 --- !u!70 &1818331213
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3081,6 +3212,7 @@ MonoBehaviour:
   player: {fileID: 969801228}
   destinationReachDistance: 7
   corner: 2
+  chaseMusic: {fileID: 1711519893}
 --- !u!50 &1890230727
 Rigidbody2D:
   serializedVersion: 4
@@ -3622,6 +3754,7 @@ Transform:
   - {fileID: 1890230724}
   - {fileID: 1115176702}
   - {fileID: 796081393}
+  - {fileID: 1711519892}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
