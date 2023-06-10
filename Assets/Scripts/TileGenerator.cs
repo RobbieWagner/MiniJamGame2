@@ -12,7 +12,7 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]private TileLayer[] mapFeatureLayers;
     [SerializeField]private MapFeature[] mapFeatures;
     [HideInInspector] public static int firstMapFeatureLayer;
-    private int[,] selectedTileLayers;
+    [HideInInspector] public int[,] selectedTileLayers;
     private bool[,] generatedTiles;
     [SerializeField] private Transform[] manuallySelectedTiles;
     [SerializeField] private int maxRows;
@@ -24,11 +24,25 @@ public class TileGenerator : MonoBehaviour
     private Vector3 startingPosition;
     List<int> baseGameLayers;
 
-    [SerializeField] int firstNonWaterTileLayer;
+    [SerializeField] public int firstNonWaterTileLayer;
 
     [SerializeField] Transform layout;
     [SerializeField] private NavMeshSurface navMesh;
     [SerializeField] private float PERLIN_SCALE = .05f;
+
+    public static TileGenerator Instance {get; private set;}
+
+    private void Awake() 
+    {
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        } 
+    }
 
     public void GenerateGame()
     {

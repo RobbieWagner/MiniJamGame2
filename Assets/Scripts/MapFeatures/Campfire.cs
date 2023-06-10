@@ -6,7 +6,8 @@ using UnityEngine;
 public class Campfire : MapFeature
 {
     [SerializeField] private int borderLimit;
-    [SerializeField][Range(1,10)] private int numberOfCampfires;
+    [SerializeField][Range(1,100)] private int numberOfCampfires;
+    [SerializeField] List<int> acceptableLayers;
 
     public override int[,] AddMapFeature(int campfireLayer, int maxColumns, int maxRows, int[,] layers, List<int> layersToConsider, int firstMapFeatureLayer) 
     {
@@ -53,10 +54,7 @@ public class Campfire : MapFeature
     {
         bool canPlaceCampfire = true;
 
-        foreach(List<int> campfireCoordinates in campfiresPlaced)
-        {
-            if(Math.Abs(campfireCandidate[0] - campfireCoordinates[0]) < 10 && Math.Abs(campfireCandidate[1] - campfireCoordinates[1]) < 10) canPlaceCampfire = false;
-        }
+        if(!acceptableLayers.Contains(TileGenerator.Instance.selectedTileLayers[campfireCandidate[0], campfireCandidate[1]])) canPlaceCampfire = false;
 
         if(canPlaceCampfire)
         {

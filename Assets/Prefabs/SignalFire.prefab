@@ -328,8 +328,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireLife: {fileID: 749427455043575654}
   lossMultiplier: 1
-  replenishmentValue: 10
-  secondsToExtinguish: 90
+  replenishmentValue: 20
+  secondsToExtinguish: 180
 --- !u!58 &5276486085190807797
 CircleCollider2D:
   m_ObjectHideFlags: 0
