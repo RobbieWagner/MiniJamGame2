@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/World.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/SharkKillGameOver.unity
+    path: Assets/Scenes/SharkDeathGameOver.unity
     guid: 76b686b5031ef5844a1caee6c13bb28a
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
-    guid: 483ad98c6e54885409ee64e6a4087a5e
+    guid: 8e4cede2b7f9b414d876c1e926cc4da2
   m_configObjects: {}

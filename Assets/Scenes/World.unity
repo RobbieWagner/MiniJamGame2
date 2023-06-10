@@ -649,7 +649,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1210,6 +1210,7 @@ MonoBehaviour:
   waterSpeed: 1.5
   canSpawnRaft: 0
   raftGO: {fileID: 1508704143}
+  isInWater: 0
 --- !u!61 &969801229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1744,10 +1745,11 @@ MonoBehaviour:
   navAgent: {fileID: 1818331209}
   tileGenerator: {fileID: 798119805}
   swimSpeed: 4
-  chaseSpeed: 15
+  chaseSpeed: 11.75
   rotationSpeed: 720
-  player: {fileID: 0}
-  destinationReachDistance: 0
+  chaseDistance: 50
+  player: {fileID: 969801228}
+  destinationReachDistance: 7
 --- !u!70 &1818331213
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1916,6 +1918,10 @@ PrefabInstance:
       propertyPath: audioMixer
       value: 
       objectReference: {fileID: 24100000, guid: f867c5bc26e711149a7dffffd232d6e9, type: 2}
+    - target: {fileID: 4986456345677866740, guid: c6407c41701dc96459a2403f816bffe6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4986456345677866741, guid: c6407c41701dc96459a2403f816bffe6, type: 3}
       propertyPath: m_Pivot.x
       value: 0

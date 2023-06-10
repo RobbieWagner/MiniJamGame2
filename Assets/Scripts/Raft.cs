@@ -27,8 +27,19 @@ public class Raft : MonoBehaviour
     [SerializeField] private Sprite idleSprite;
     private SpriteRenderer spriteR;
 
+    public static Raft Instance{get; private set;}
+
     private void Awake()
     {
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        } 
+
         canEnterRaft = false;
         canExitRaft = false;
         isInRaft = false;

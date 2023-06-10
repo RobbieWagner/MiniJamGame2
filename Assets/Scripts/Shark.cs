@@ -13,8 +13,9 @@ public class Shark : MonoBehaviour
     [SerializeField] float swimSpeed;
     [SerializeField] float chaseSpeed;
     [SerializeField] float rotationSpeed;
+    [SerializeField] float chaseDistance;
 
-    [SerializeField] Player player;
+    [SerializeField] PlayerWithRaft player;
     bool isChasingPlayer;
     bool isMoving;
     Vector3 destination;
@@ -51,12 +52,28 @@ public class Shark : MonoBehaviour
 
         else
         {
-            lookDirection = player.transform.position - transform.position;
+            navAgent.SetDestination(player.transform.position);
+            NavMeshPath navMeshPath = new NavMeshPath();
+            if(!(navAgent.CalculatePath(player.transform.position, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete))
+            {
+                isChasingPlayer = false;
+                Debug.Log("stop chasing");
+                destination = FindNewDestination();
+                navAgent.SetDestination(destination);
+                navAgent.speed = swimSpeed;
+            }
         }
 
         lookDirection = navAgent.nextPosition - transform.position;
         transform.rotation = Quaternion.FromToRotation(Vector3.up, lookDirection);
         transform.position = navAgent.nextPosition;
+
+        if(!isChasingPlayer && (Raft.Instance.isInRaft || player.isInWater) && Vector3.Distance(Player.Instance.transform.position, transform.position) < chaseDistance)
+        {
+            isChasingPlayer = true;
+            navAgent.speed = chaseSpeed;
+            Debug.Log("chasing");
+        }
     }
 
     private Vector3 FindNewDestination()
@@ -82,5 +99,7 @@ public class Shark : MonoBehaviour
             }
             else SceneManager.LoadScene("SharkDeathGameOver");
         }
+
+        if(other.gameObject.CompareTag("Player") && player.isInWater) SceneManager.LoadScene("SharkDeathGameOver");
     }
 }

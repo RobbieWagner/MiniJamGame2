@@ -12,6 +12,7 @@ public class PlayerWithRaft : Player
     [SerializeField] private GameObject raftGO;
 
     bool isRaftOut;
+    public bool isInWater;
 
     protected override void Awake()
     {
@@ -20,6 +21,7 @@ public class PlayerWithRaft : Player
         waterTilesTouched = new HashSet<Collider2D>();
 
         isRaftOut = false;
+        isInWater = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -28,6 +30,7 @@ public class PlayerWithRaft : Player
         {
             if(!waterTilesTouched.Contains(other)) waterTilesTouched.Add(other);
             ChangeSpeed(waterSpeed);
+            isInWater = true;
         }
     }
 
@@ -39,6 +42,7 @@ public class PlayerWithRaft : Player
             if(waterTilesTouched.Count == 0) 
             {
                 ChangeSpeed(speed);
+                isInWater = false;
             }
         }
     }
