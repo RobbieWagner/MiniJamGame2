@@ -34,6 +34,7 @@ public class FuelPickUp : MonoBehaviour
         if(canPickUp)
         {
             GameStats.Instance.Fuel++;
+            PickupSound.Instance.PlaySound();
             Destroy(this.gameObject);
         }
     }

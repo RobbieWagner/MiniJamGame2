@@ -41,6 +41,6 @@ public class GameStats : MonoBehaviour
 
     private void UpdateFuelText(int fuel)
     {
-        fuelAmountText.text = "Branches: " + fuel.ToString();
+        fuelAmountText.text = "Branches:\n" + fuel.ToString();
     }
 }

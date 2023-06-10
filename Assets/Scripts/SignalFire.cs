@@ -17,6 +17,8 @@ public class SignalFire : MonoBehaviour
 
     bool isPlayerNear;
 
+    [SerializeField] AudioSource fireSound;
+
     private void Awake() 
     {
         if (Instance != null && Instance != this) 
@@ -48,6 +50,7 @@ public class SignalFire : MonoBehaviour
         {
             GameStats.Instance.Fuel--;
             fireLife.value += replenishmentValue;
+            if(!fireSound.isPlaying)fireSound.Play();
         }
     }
 
@@ -64,6 +67,7 @@ public class SignalFire : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             isPlayerNear = false;
+            fireSound.Stop();
         }
     }
 }

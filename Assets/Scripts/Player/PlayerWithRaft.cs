@@ -108,9 +108,10 @@ public class PlayerWithRaft : Player
     {
         if(!Raft.Instance.isInRaft)
         {
+            bool soundWasPlaying = currentFootstepsSound.isPlaying;
             currentFootstepsSound.Stop();
             currentFootstepsSound = sound;
-            currentFootstepsSound.Play();
+            if(soundWasPlaying)currentFootstepsSound.Play();
         }
     }
 }

@@ -232,7 +232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5750911956658393509, guid: 4fff346c35cc18648b6dbdae7374e79d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5750911956658393509, guid: 4fff346c35cc18648b6dbdae7374e79d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -430,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5980290402898012335, guid: 07325d9e188149644aeb6a5b70f4a457, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 5980290402898012335, guid: 07325d9e188149644aeb6a5b70f4a457, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -560,8 +560,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 200
-  m_fontSizeBase: 200
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -859,7 +859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1126375396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1191,7 +1191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3913408674384595615, guid: 62ad096389a25b14e9afe173ff992e8d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 3913408674384595615, guid: 62ad096389a25b14e9afe173ff992e8d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1726,7 +1726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3816273259032634624, guid: c0cc831ee2d86a347b756a751d0651ec, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3816273259032634624, guid: c0cc831ee2d86a347b756a751d0651ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1750,7 +1750,7 @@ PrefabInstance:
       objectReference: {fileID: 1480664798}
     - target: {fileID: 9077932317945163529, guid: c0cc831ee2d86a347b756a751d0651ec, type: 3}
       propertyPath: gameSceneName
-      value: World
+      value: Tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 9077932317945163529, guid: c0cc831ee2d86a347b756a751d0651ec, type: 3}
       propertyPath: loadingCanvas
@@ -1917,7 +1917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5980290402898012335, guid: 07325d9e188149644aeb6a5b70f4a457, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -70
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 5980290402898012335, guid: 07325d9e188149644aeb6a5b70f4a457, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2118,10 +2118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 16
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 480, y: 270}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
