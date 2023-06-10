@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 8e4cede2b7f9b414d876c1e926cc4da2
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 377bdcc545efa1540bc02b3901a5d613
+  - enabled: 1
+    path: Assets/Scenes/FireOutGameOver.unity
+    guid: bd9542161cce6cb43a6a3ec71d148a63
   m_configObjects: {}
