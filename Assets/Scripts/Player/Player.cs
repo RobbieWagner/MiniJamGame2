@@ -14,9 +14,14 @@ public class Player : MonoBehaviour
     public bool canMove = true;
     public Animator animator;
 
-    bool running;
+    protected bool running;
 
     public Transform spriteT;
+
+    protected AudioSource currentFootstepsSound;
+    [SerializeField] protected AudioSource footstepsSound;
+    [SerializeField] protected AudioSource runSound;
+    [SerializeField] protected AudioSource swimSound;
 
     protected virtual void Awake()
     {
@@ -36,6 +41,8 @@ public class Player : MonoBehaviour
 
         currentSpeed = speed;
         running = false;
+
+        currentFootstepsSound = footstepsSound;
     }
 
     protected void OnEnable() 
@@ -59,6 +66,8 @@ public class Player : MonoBehaviour
             if(moveInput.x != 0 || moveInput.y != 0) animator.SetBool("walking", true);
             else animator.SetBool("walking", false);
             UpdateRotation();
+            if(!currentFootstepsSound.isPlaying && (moveInput.x != 0 || moveInput.y != 0)) currentFootstepsSound.Play();
+            else if(moveInput.x == 0 && moveInput.y == 0) currentFootstepsSound.Stop();
         }
     }
 
@@ -73,6 +82,7 @@ public class Player : MonoBehaviour
     {
         rb2d.velocity = Vector2.zero;
         moveInput = Vector2.zero;
+        currentFootstepsSound.Stop();
     }
 
     private void UpdateRotation()
@@ -99,12 +109,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnRun()
+    protected virtual void OnRun()
     {
         running = !running;
         if(running) currentSpeed *= 2;
         else currentSpeed /= 2;
 
         rb2d.velocity = moveInput * currentSpeed;
+    }
+
+    protected void SwitchFootstepSound(AudioSource sound)
+    {
+        currentFootstepsSound.Stop();
+        currentFootstepsSound = sound;
+        currentFootstepsSound.Play();
     }
 }

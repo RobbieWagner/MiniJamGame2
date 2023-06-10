@@ -31,6 +31,7 @@ public class PlayerWithRaft : Player
             if(!waterTilesTouched.Contains(other)) waterTilesTouched.Add(other);
             ChangeSpeed(waterSpeed);
             isInWater = true;
+            SwitchFootstepSound(swimSound);
         }
     }
 
@@ -43,6 +44,8 @@ public class PlayerWithRaft : Player
             {
                 ChangeSpeed(speed);
                 isInWater = false;
+                if(running) SwitchFootstepSound(runSound);
+                else SwitchFootstepSound(footstepsSound);
             }
         }
     }
@@ -68,5 +71,21 @@ public class PlayerWithRaft : Player
     {
         isRaftOut = false;
         raftGO.transform.position = new Vector2(-500, -500);
+    }
+
+    protected override void OnRun()
+    {
+        running = !running;
+        if(running) currentSpeed *= 2;
+        else currentSpeed /= 2;
+
+        rb2d.velocity = moveInput * currentSpeed;
+
+        if(!Raft.Instance.isInRaft)
+        {
+            if(!isInWater && running) SwitchFootstepSound(runSound);
+            else if(!isInWater) SwitchFootstepSound(footstepsSound);
+            else SwitchFootstepSound(swimSound);
+        }
     }
 }

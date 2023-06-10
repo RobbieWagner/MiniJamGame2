@@ -29,6 +29,8 @@ public class Raft : MonoBehaviour
     [SerializeField] private Sprite idleSprite;
     private SpriteRenderer spriteR;
 
+    [SerializeField] private AudioSource raftMovementSound;
+
     public static Raft Instance{get; private set;}
 
     private void Awake()
@@ -85,6 +87,7 @@ public class Raft : MonoBehaviour
             if(!beachTilesTouched.Contains(other)) beachTilesTouched.Add(other);
             ChangeSpeed(raftGroundSpeed);
             isOnLand = true;
+            raftMovementSound.Stop();
         }
     }
 
@@ -149,6 +152,7 @@ public class Raft : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         Player.Instance.rb2d.velocity = Vector2.zero;
         moveInput = Vector2.zero;
+        raftMovementSound.Stop();
         //Debug.Log(Player.Instance.rb2d.velocity);
         //Debug.Log(rb2d.velocity);
     }
@@ -162,8 +166,16 @@ public class Raft : MonoBehaviour
             //Player.Instance.rb2d.velocity = moveInput * raftCurrentSpeed;
             UpdateRotation();
 
-            if(moveInput.x != 0 || moveInput.y != 0) spriteR.sprite = movingSprite;
-            else spriteR.sprite = idleSprite;
+            if(moveInput.x != 0 || moveInput.y != 0) 
+            {
+                spriteR.sprite = movingSprite;
+                if(!raftMovementSound.isPlaying) raftMovementSound.Play();
+            }
+            else 
+            {
+                spriteR.sprite = idleSprite;
+                raftMovementSound.Stop();
+            }
         }
         else
         {
