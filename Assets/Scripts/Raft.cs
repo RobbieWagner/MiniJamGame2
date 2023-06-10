@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class Raft : MonoBehaviour
 {
@@ -30,6 +32,8 @@ public class Raft : MonoBehaviour
     private SpriteRenderer spriteR;
 
     [SerializeField] private AudioSource raftMovementSound;
+
+    [SerializeField] Slider raftHealth;
 
     public static Raft Instance{get; private set;}
 
