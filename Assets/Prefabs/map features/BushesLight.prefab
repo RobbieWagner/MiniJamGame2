@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   borderLimit: 10
-  numberOfCampfires: 8
+  numberOfCampfires: 15
   acceptableLayers: 07000000
