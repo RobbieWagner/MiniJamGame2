@@ -70,9 +70,12 @@ public class TileGenerator : MonoBehaviour
         navMesh.BuildNavMeshAsync();
     }
 
-    public Vector2 CalculateWorldBorder()
+    public Vector2 CalculateWorldBorder(int corner)
     {
-        return new Vector2(maxColumns * tileSize / 2, maxRows * tileSize);
+        if(corner == 1) return new Vector2(-maxColumns * tileSize / 2, maxRows * tileSize) + new Vector2(7,-7);
+        if(corner == 2) return new Vector2(maxColumns * tileSize / 2, maxRows * tileSize) + new Vector2(-7,-7);
+        if(corner == 3) return new Vector2(-maxColumns * tileSize / 2, 0) + new Vector2(7,7);
+        else return new Vector2(maxColumns * tileSize / 2, 0) + new Vector2(-7,7);
     }
 
     private void AssignBaseGameLayers()

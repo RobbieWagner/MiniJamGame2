@@ -15,6 +15,8 @@ public class Raft : MonoBehaviour
     [SerializeField] float raftGroundSpeed = 2f;
     float raftCurrentSpeed;
 
+    [HideInInspector] public bool isOnLand;
+
     HashSet<Collider2D> beachTilesTouched;
 
     private Vector2 moveInput;
@@ -43,6 +45,7 @@ public class Raft : MonoBehaviour
         canEnterRaft = false;
         canExitRaft = false;
         isInRaft = false;
+        isOnLand = false;
 
         beachTilesTouched = new HashSet<Collider2D>();
         raftCurrentSpeed = raftWaterSpeed;
@@ -81,6 +84,7 @@ public class Raft : MonoBehaviour
             canExitRaft = true;
             if(!beachTilesTouched.Contains(other)) beachTilesTouched.Add(other);
             ChangeSpeed(raftGroundSpeed);
+            isOnLand = true;
         }
     }
 
@@ -99,6 +103,7 @@ public class Raft : MonoBehaviour
             {
                 canExitRaft = false;
                 ChangeSpeed(raftWaterSpeed);
+                isOnLand = false;
             }
         }
     }

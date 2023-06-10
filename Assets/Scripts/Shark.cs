@@ -21,9 +21,11 @@ public class Shark : MonoBehaviour
     Vector3 destination;
     [SerializeField] float destinationReachDistance;
 
+    [SerializeField] int corner;
+
     private void Awake()
     {
-        transform.position = tileGenerator.CalculateWorldBorder() - new Vector2(7,7);
+        transform.position = tileGenerator.CalculateWorldBorder(corner);
         isMoving = false;
         navAgent.angularSpeed = 0f;
         navAgent.updatePosition = false;
@@ -49,15 +51,14 @@ public class Shark : MonoBehaviour
                 isMoving = true;
             }
         }
-
         else
         {
             navAgent.SetDestination(player.transform.position);
             NavMeshPath navMeshPath = new NavMeshPath();
-            if(!(navAgent.CalculatePath(player.transform.position, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete))
+            if(!(navAgent.CalculatePath(player.transform.position, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete) || (Raft.Instance.isOnLand && Raft.Instance.isInRaft))
             {
                 isChasingPlayer = false;
-                Debug.Log("stop chasing");
+                //Debug.Log("stop chasing");
                 destination = FindNewDestination();
                 navAgent.SetDestination(destination);
                 navAgent.speed = swimSpeed;
@@ -68,11 +69,11 @@ public class Shark : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(Vector3.up, lookDirection);
         transform.position = navAgent.nextPosition;
 
-        if(!isChasingPlayer && (Raft.Instance.isInRaft || player.isInWater) && Vector3.Distance(Player.Instance.transform.position, transform.position) < chaseDistance)
+        if(!isChasingPlayer && ((Raft.Instance.isInRaft && !Raft.Instance.isOnLand) || (player.isInWater && !Raft.Instance.isInRaft)) && Vector3.Distance(Player.Instance.transform.position, transform.position) < chaseDistance)
         {
             isChasingPlayer = true;
             navAgent.speed = chaseSpeed;
-            Debug.Log("chasing");
+            //Debug.Log("chasing");
         }
     }
 
@@ -98,6 +99,12 @@ public class Shark : MonoBehaviour
                 navAgent.SetDestination(destination);
             }
             else SceneManager.LoadScene("SharkDeathGameOver");
+        }
+
+        if(other.gameObject.CompareTag("Shark"))
+        {
+            destination = FindNewDestination();
+            navAgent.SetDestination(destination);
         }
 
         if(other.gameObject.CompareTag("Player") && player.isInWater) SceneManager.LoadScene("SharkDeathGameOver");
